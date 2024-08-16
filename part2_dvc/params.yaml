@@ -1,0 +1,6 @@
+# params.yaml
+index_col: 'flat_id'
+target_col: 'price'
+reminder: 'drop'
+n_splits: 5
+

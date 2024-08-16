@@ -4,13 +4,16 @@ import pandas as pd
 import pendulum
 from airflow.decorators import dag, task
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from steps.messages import send_telegram_success_message, send_telegram_failure_message
 
 
 @dag(
     schedule='@once',
     start_date=pendulum.datetime(2024, 1, 1, tz="UTC"),
     catchup=False,
-    tags=["ETL"]
+    tags=["ETL"],
+    on_success_callback=send_telegram_success_message,
+    on_failure_callback=send_telegram_failure_message
 )
 def prepare_flat_dataset():
     @task()
